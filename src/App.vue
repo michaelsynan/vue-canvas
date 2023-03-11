@@ -2,8 +2,11 @@
   <div id="app">
     <h1>Hello, world!</h1>
 
-    <img src="https://picsum.photos/id/237/200/300" />
+    <img :src="myimage" />
+
+    <!---
     <CanvasGrid :element="image" :rows="10" :columns="10" />
+    -->
   </div>
 </template>
 
@@ -18,6 +21,7 @@ export default {
   data() {
     return {
       image: null,
+      myimage: 'drop.jpeg',
     };
   },
   mounted() {
