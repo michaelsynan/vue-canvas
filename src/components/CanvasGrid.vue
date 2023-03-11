@@ -1,55 +1,41 @@
 <template>
-  <div>
-    <canvas ref="myCanvas" />
-  </div>
+  <canvas ref="canvas" />
 </template>
 
 <script>
 export default {
   name: 'CanvasGrid',
-
   props: {
-    element: {
-      type: [HTMLImageElement, HTMLCanvasElement, SVGElement], // add SVGElement to the type
-      required: true,
-    },
     rows: {
       type: Number,
-      required: true,
+      default: 10,
     },
     columns: {
       type: Number,
-      required: true,
+      default: 10,
     },
   },
-
   mounted() {
-    console.log('CanvasGrid component mounted');
-    const canvas = this.$refs.myCanvas;
-    const ctx = canvas.getContext('2d');
-    const svg = this.element.cloneNode(true);
+    const canvas = this.$refs.canvas;
+    const context = canvas.getContext('2d');
 
-    // Create a temporary SVG element to calculate the actual dimensions of the SVG
-    const svgWrapper = document.createElement('div');
-    svgWrapper.appendChild(svg);
-    document.body.appendChild(svgWrapper);
-
-    const rect = svg.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-
-    document.body.removeChild(svgWrapper);
-
-    const rectWidth = canvas.width / this.columns;
-    const rectHeight = canvas.height / this.rows;
+    const cellWidth = canvas.width / this.columns;
+    const cellHeight = canvas.height / this.rows;
 
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.columns; col++) {
-        const x = col * rectWidth;
-        const y = row * rectHeight;
-        ctx.strokeRect(x, y, rectWidth, rectHeight);
+        const x = col * cellWidth;
+        const y = row * cellHeight;
+
+        context.strokeRect(x, y, cellWidth, cellHeight);
       }
     }
   },
 };
 </script>
+
+<style scoped>
+canvas {
+  border: 1px solid #ccc;
+}
+</style>
