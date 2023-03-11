@@ -2,11 +2,17 @@
   <div id="app">
     <h1>Hello, world!</h1>
 
-    <img :src="myimage" />
+    <div>
+      <svg height="250" width="500" ref="myImage">
+        <polygon
+          points="220,10 300,210 170,250 123,234"
+          style="fill: lime; stroke: purple; stroke-width: 1"
+        />
+        Sorry, your browser does not support inline SVG.
+      </svg>
+    </div>
 
-    <!---
-    <CanvasGrid :element="image" :rows="10" :columns="10" />
-    -->
+    <CanvasGrid :element="$refs.myImage" :rows="10" :columns="10" />
   </div>
 </template>
 
@@ -17,19 +23,6 @@ export default {
   name: 'App',
   components: {
     CanvasGrid,
-  },
-  data() {
-    return {
-      image: null,
-      myimage: 'hudl.png',
-    };
-  },
-  mounted() {
-    const img = new Image();
-    img.src = 'https://picsum.photos/id/237/200/300';
-    img.onload = () => {
-      this.image = img;
-    };
   },
 };
 </script>

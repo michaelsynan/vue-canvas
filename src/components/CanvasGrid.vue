@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas ref="canvas" />
+    <canvas ref="myCanvas" />
   </div>
 </template>
 
@@ -10,7 +10,7 @@ export default {
 
   props: {
     element: {
-      type: [HTMLImageElement, HTMLCanvasElement],
+      type: [HTMLImageElement, HTMLCanvasElement, SVGElement], // add SVGElement to the type
       required: true,
     },
     rows: {
@@ -25,20 +25,20 @@ export default {
 
   mounted() {
     console.log('CanvasGrid component mounted');
-    const canvas = this.$refs.canvas;
+    const canvas = this.$refs.myCanvas;
     const ctx = canvas.getContext('2d');
+    const svg = this.element.cloneNode(true);
 
-    if (this.element.complete) {
-      // If the image has already loaded, set the width and height of the canvas element
-      canvas.width = this.element.width;
-      canvas.height = this.element.height;
-    } else {
-      // If the image hasn't loaded yet, wait for it to load before setting the width and height of the canvas element
-      this.element.onload = () => {
-        canvas.width = this.element.width;
-        canvas.height = this.element.height;
-      };
-    }
+    // Create a temporary SVG element to calculate the actual dimensions of the SVG
+    const svgWrapper = document.createElement('div');
+    svgWrapper.appendChild(svg);
+    document.body.appendChild(svgWrapper);
+
+    const rect = svg.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+
+    document.body.removeChild(svgWrapper);
 
     const rectWidth = canvas.width / this.columns;
     const rectHeight = canvas.height / this.rows;
