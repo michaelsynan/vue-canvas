@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       image: null,
-      myimage: 'drop.jpeg',
+      myimage: 'hudl.png',
     };
   },
   mounted() {
