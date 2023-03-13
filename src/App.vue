@@ -1,32 +1,32 @@
 <template>
   <div>
-    <h1 class="app-title">HELLO</h1>
-    <img src="hudl.png" width="300" />
-    <CanvasGrid :rows="rows" :columns="columns" />
+    <CanvasCols
+      :image="theimage"
+      :columns="columns"
+      :rows="rows"
+      :canvasHeight="100"
+    />
   </div>
 </template>
 
 <script>
-import CanvasGrid from './components/CanvasGrid.vue';
+import { ref } from 'vue';
+import CanvasCols from '@/components/CanvasCols.vue';
 
 export default {
-  name: 'App',
   components: {
-    CanvasGrid,
+    CanvasCols,
   },
-  data() {
+  setup() {
+    const theimage = ref('/logo.png');
+    const columns = ref(8);
+    const rows = ref(8);
+
     return {
-      rows: 10,
-      columns: 10,
+      theimage,
+      columns,
+      rows,
     };
   },
 };
 </script>
-
-<style scoped>
-.app-title {
-  font-size: 2rem;
-  text-align: center;
-  margin-top: 2rem;
-}
-</style>
