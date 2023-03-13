@@ -1,3 +1,1 @@
-# vue-cgzmxl
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/vue-cgzmxl)
+# Vue Canvas Test Component
